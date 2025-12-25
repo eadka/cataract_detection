@@ -1,4 +1,4 @@
-#  Cataract Detection ML System
+# 👁️ Cataract Detection
 **End-to-end ML system for cataract detection with deep learning, Docker, and Kubernetes**
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
@@ -10,52 +10,33 @@
 ![Cloud](https://img.shields.io/badge/Cloud-Fly.io-purple)
 
 
+## Repository Structure
 
-<p align="center">
-  <img src="images/icons8-ophthalmology-30.png" alt="Eye image" width="120"/>
-</p>
-
-<h1 align="center">Cataract Detection ML System</h1>
-
-<p align="center">
-  End-to-end ML system for cataract detection with deep learning, Docker, and Kubernetes
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.12-blue"/>
-  <img src="https://img.shields.io/badge/ML%20Zoomcamp-DataTalksClub-orange"/>
-  <img src="https://img.shields.io/badge/Docker-Containerized-blue"/>
-  <img src="https://img.shields.io/badge/Kubernetes-kind-blueviolet"/>
-  <img src="https://img.shields.io/badge/Cloud-Fly.io-purple"/>
-</p>
-
-
-## Repo Structure
-
+```text
 cataract-detection/
 │
 ├── data/
-│   └── sample_images/
+│   └── sample_images/          # Sample eye images for testing/demo
 │
 ├── model/
-│   ├── train.py
-│   ├── evaluate.py
-│   └── model.h5
+│   ├── train.py                # Model training script
+│   ├── evaluate.py             # Model evaluation and metrics
+│   └── model.h5                # Trained CNN model (not committed if large)
 │
 ├── app/
-│   ├── app.py        # FastAPI
-│   └── predict.py
+│   ├── app.py                  # FastAPI inference service
+│   └── predict.py              # Prediction logic and preprocessing
 │
 ├── streamlit_app/
-│   └── ui.py
+│   └── ui.py                   # Streamlit user interface
 │
 ├── docker/
-│   └── Dockerfile
+│   └── Dockerfile              # Dockerfile for inference service
 │
 ├── k8s/
-│   ├── deployment.yaml
-│   └── service.yaml
+│   ├── deployment.yaml         # Kubernetes Deployment
+│   └── service.yaml            # Kubernetes Service
 │
-├── requirements.txt
-├── README.md
-└── Makefile
+├── requirements.txt            # Python dependencies
+├── Makefile                    # Common project commands
+└── README.md                   # Project documentation
