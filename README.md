@@ -43,3 +43,12 @@ cataract-detection/
 ├── requirements.txt            # Python dependencies
 ├── Makefile                    # Common project commands
 └── README.md                   # Project documentation
+
+
+/kaggle/working/split_data/
+  ├── train/
+  │   ├── cataract/
+  │   └── normal/
+  └── val/
+      ├── cataract/
+      └── normal/
