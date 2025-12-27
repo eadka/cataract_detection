@@ -18,11 +18,12 @@ cataract-detection/
 ├── data/
 │   └── sample_images/          # Sample eye images for testing/demo
 │
-├── model/
+├── notebooks/
 │   ├── train.py                # Model training script
 │   ├── evaluate.py             # Model evaluation and metrics
-│   └── model.h5                # Trained CNN model (not committed if large)
 │
+├── model/
+│   └── model.h5                # Trained CNN model 
 ├── app/
 │   ├── app.py                  # FastAPI inference service
 │   └── predict.py              # Prediction logic and preprocessing
@@ -36,6 +37,8 @@ cataract-detection/
 ├── k8s/
 │   ├── deployment.yaml         # Kubernetes Deployment
 │   └── service.yaml            # Kubernetes Service
+│
+│── images/
 │
 ├── requirements.txt            # Python dependencies
 ├── Makefile                    # Common project commands
