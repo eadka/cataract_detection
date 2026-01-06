@@ -9,6 +9,11 @@
 ![Kubernetes](https://img.shields.io/badge/Kubernetes-kind-blueviolet)
 ![Cloud](https://img.shields.io/badge/Cloud-Fly.io-purple)
 
+---
+## Problem description
+
+
+---
 
 ## Repository Structure
 
@@ -52,3 +57,44 @@ cataract-detection/
   └── val/
       ├── cataract/
       └── normal/
+```
+---
+## Dataset
+
+
+--- 
+
+## EDA
+
+
+---
+
+## Model Training
+
+---
+
+## Exporting notebook to script
+
+---
+
+## Reproducibility
+
+---
+
+## Model Deployment
+
+---
+
+## Dependency and enviroment management
+
+
+---
+
+## Containerization
+
+
+--- 
+
+## Cloud deployment
+
+
