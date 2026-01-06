@@ -1,8 +1,11 @@
 # 👁️ Cataract Detection
-<img 
-  src="https://drcravey.com/wp-content/uploads/2018/08/what-is-a-cataract-1-1024x341.jpeg"
-  style="width:75%; height:220px; object-fit:cover; object-position:center;"
-/>
+<div align="center">
+  <img 
+    src="https://drcravey.com/wp-content/uploads/2018/08/what-is-a-cataract-1-1024x341.jpeg"
+    style="width:75%; object-fit:contain;"
+    alt="Cataract illustration"
+  />
+</div>
 
 **End-to-end ML system for cataract detection with deep learning, Docker, and Kubernetes**
 
