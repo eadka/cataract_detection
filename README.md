@@ -92,9 +92,9 @@ cataract-detection/
 ```
 ---
 ## Dataset
-In this project, the following Kaggle dataset has been used: ![Cataract Dataset](https://www.kaggle.com/datasets/nandanp6/cataract-image-dataset)
+In this project, the following Kaggle dataset has been used: [Cataract Dataset](https://www.kaggle.com/datasets/nandanp6/cataract-image-dataset)
 
-![Cataract Dataset](/workspaces/cataract_detection/images/cataract_dataset.png)
+![Cataract Dataset](images/cataract_dataset.png)
 
 The dataset can be downloaded with the following code:
 ```
