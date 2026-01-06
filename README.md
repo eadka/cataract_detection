@@ -1,7 +1,7 @@
 # 👁️ Cataract Detection
 <div align="center">
   <img 
-    src="https://drcravey.com/wp-content/uploads/2018/08/what-is-a-cataract-1-1024x341.jpeg"
+    src="https://collaborativeeye.com/wp-content/uploads/sites/7/2019/02/The-Importance-of-the-Ocular-Surface-in-Cataract-Surgery-Hero-740x366.jpg"
     style="width:75%; object-fit:contain;"
     alt="Cataract illustration"
   />
