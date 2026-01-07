@@ -1,7 +1,7 @@
 # 👁️ Cataract Detection
 <div align="center">
   <img 
-    src="https://collaborativeeye.com/wp-content/uploads/sites/7/2019/02/The-Importance-of-the-Ocular-Surface-in-Cataract-Surgery-Hero-740x366.jpg"
+    src= "images/eye.png"
     style="width:75%; object-fit:contain;"
     alt="Cataract illustration"
   />
