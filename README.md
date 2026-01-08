@@ -125,6 +125,20 @@ The test has 121 images: 61 as cataract and 60 as normal.
 
 ## Model Training
 
+
+## Trained Model
+
+The final trained model is stored as a versioned artifact using GitHub Releases, separate from the training code, to ensure reproducibility and clean version control and can be found below:
+
+- **Model**: MobileNetV2 Cataract Detector
+- **Version**: v1.0
+- **Test Accuracy**: 98.35%
+
+📦 Download:
+```
+wget https://github.com/eadka/cataract_detection/releases/download/v1.0-mobilenet-cataract/mobilenet_v4_06_0.980.pth
+```
+
 ---
 
 ## Exporting notebook to script
