@@ -1,7 +1,7 @@
 # 👁️ Cataract Detection
 <div align="center">
   <img 
-    src= "images/eye.png"
+    src="https://collaborativeeye.com/wp-content/uploads/sites/7/2019/02/The-Importance-of-the-Ocular-Surface-in-Cataract-Surgery-Hero-740x366.jpg"
     style="width:75%; object-fit:contain;"
     alt="Cataract illustration"
   />
@@ -110,7 +110,13 @@ print("Path to dataset files:", path)
 ```
 ## About the dataset
 
---- 
+The images in this dataset are cataract eye images dataset from camera captures which have been scrapped from the web. 
+
+The dataset has 612 images split as `cataract` and `normal` under train and test folders. 
+
+The train dataset has 491 images: 245 as cataract and 246 as normal. 
+
+The test has 121 images: 61 as cataract and 60 as normal.
 
 ## EDA
 
