@@ -143,13 +143,14 @@ The final trained model is stored as a versioned artifact using GitHub Releases,
 - **Version**: v1.0
 - **Test Accuracy**: 98.35%
 
-📦 Download:
+📦 Download Mobilenet Pytorch Model:
 ```
 wget https://github.com/eadka/cataract_detection/releases/download/v1.0-mobilenet-cataract/mobilenet_v4_06_0.980.pth
 ```
 
 Next, the model trained in PyTorch is exported to ONNX, and served via FastAPI to create a lightweight, portable, and production-ready inference service. The ONNX model can be downloaded from the below link:
 
+📦 Download ONNX Model:
 ```
 wget https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobilenet-cataract-onnx/cataract_mobilenet_v2_fixed.onnx
 ```
