@@ -55,6 +55,15 @@ Early detection plays an important role in preventing severe vision impairment. 
 ```text
 cataract-detection/
 │
+├── src/
+│   ├── model.py              # ✅ model architecture (THIS is Step 1)
+│   ├── train.py              # training loop
+│   ├── evaluate.py           # validation / test evaluation
+│   ├── predict.py            # inference script (optional)
+│
+├── convert/
+│   ├── convert_to_onnx.py    # ONNX export script
+│
 ├── data/
 │   └── sample_images/          # Sample eye images for testing/demo
 │
@@ -63,7 +72,7 @@ cataract-detection/
 │   ├── evaluate.py             # Model evaluation and metrics
 │
 ├── model/
-│   └── model.h5                # Trained CNN model 
+│   └── mobilenet_v4_06_0.980.pth                # Trained CNN model 
 ├── app/
 │   ├── app.py                  # FastAPI inference service
 │   └── predict.py              # Prediction logic and preprocessing
@@ -137,6 +146,12 @@ The final trained model is stored as a versioned artifact using GitHub Releases,
 📦 Download:
 ```
 wget https://github.com/eadka/cataract_detection/releases/download/v1.0-mobilenet-cataract/mobilenet_v4_06_0.980.pth
+```
+
+Next, the model trained in PyTorch is exported to ONNX, and served via FastAPI to create a lightweight, portable, and production-ready inference service. The ONNX model can be downloaded from the below link:
+
+```
+wget https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobilenet-cataract-onnx/cataract_mobilenet_v2_fixed.onnx
 ```
 
 ---
