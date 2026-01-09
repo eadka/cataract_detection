@@ -167,7 +167,44 @@ wget https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobile
 
 ## Model Deployment
 
----
+### 🧠 FastAPI + ONNX
+The trained cataract detection model is exported to ONNX format and served via a FastAPI application. This allows fast, portable, and framework-agnostic inference.
+
+Key Components:
+- ONNX Runtime
+  - Used for efficient model inference (onnxruntime)
+  - Enables lightweight deployment without PyTorch/TensorFlow
+- FastAPI
+  - Exposes a /predict endpoint
+  - Accepts image uploads via multipart form data
+  - Returns prediction label and confidence score as JSON
+- Uvicorn
+  - ASGI server for local and containerized deployment
+
+To run it, follow the below steps
+```
+cd serve
+
+uv run uvicorn app:app --reload
+```
+
+#### API Endpoint: Open Swagger UI
+POST /predict:
+👉 http://127.0.0.1:8000/docs
+
+Upload an image and click on Execute to check the result.
+
+![Fastapi Endpoint](images/fastapi.png)
+
+The result should appear as:
+```
+{
+  "prediction": "Normal",
+  "confidence": 0.9998186230659485
+}
+```
+
+
 
 ## Dependency and enviroment management
 
