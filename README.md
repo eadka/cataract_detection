@@ -188,7 +188,7 @@ cd serve
 uv run uvicorn app:app --reload
 ```
 
-#### API Endpoint: Open Swagger UI
+#### API Endpoint: Swagger UI
 POST /predict:
 👉 http://127.0.0.1:8000/docs
 
@@ -204,7 +204,34 @@ The result should appear as:
 }
 ```
 
+#### API Endpoint: Python script using requests
 
+The python script [fastapi_test.py](https://github.com/eadka/cataract_detection/tree/main/serve/fastapi_test.py) uses the requests library to test the FastAPI /predict endpoint by sending an image file and printing the model’s response.
+
+Two sample images are provided in the [images folder](https://github.com/eadka/cataract_detection/tree/main/images) for testing:
+  - `test_image_cataract.png`
+  - `test_image_normal.png`
+
+You can modify the image path in `fastapi_test.py` to test different images.
+
+##### Run the test
+
+Make sure the FastAPI server is running, then open a new terminal and run:
+
+```
+cd serve
+
+uv run python ./fastapi_test.py
+
+```
+##### Example output
+```
+{
+  'prediction': 'Cataract', 
+  'confidence': 0.9998255372047424
+}
+```
+This confirms that the API endpoint is working correctly and returning model predictions.
 
 ## Dependency and enviroment management
 
