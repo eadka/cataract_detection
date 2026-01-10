@@ -233,6 +233,53 @@ uv run python ./fastapi_test.py
 ```
 This confirms that the API endpoint is working correctly and returning model predictions.
 
+###  Streamlit Web App
+
+A Streamlit application is used to provide a simple and interactive web interface for running cataract detection on uploaded eye images. The app allows users to upload an image and view the model’s prediction and confidence score in real time.
+
+The Streamlit app reuses the same preprocessing logic and ONNX model as the FastAPI service, ensuring consistent predictions across both interfaces.
+
+##### Key Components
+- Streamlit
+  - Provides a lightweight web UI for model inference
+  - Handles image upload and display
+  - Shows prediction label and confidence score
+- ONNX Runtime
+  - Used to load and run the exported ONNX model
+  - Ensures fast inference without requiring PyTorch at runtime
+- NumPy & Pillow
+  - Used for image preprocessing and tensor preparation
+
+##### Run the Streamlit App
+From the project root, run:
+```
+cd streamlit_app
+
+uv run streamlit run app.py
+```
+Once running, open the app in your browser at:
+👉 http://localhost:8501
+
+##### Using the App
+
+Upload an eye image (.png, .jpg, or .jpeg) using the file uploader.
+- The uploaded image is displayed on the page.
+- The model predicts whether the image shows Cataract or Normal.
+- The prediction label and confidence score are shown below the image.
+
+Note: In some environments (e.g., GitHub Codespaces), drag-and-drop upload may be disabled due to browser iframe restrictions. Click-to-upload works as expected, and drag-and-drop functions normally in local and deployed environments.
+
+##### Example Output
+```
+Prediction: Cataract
+Confidence: 0.9998
+```
+
+Screenshot of the Streamlit app:
+![Streamlit app](images/streamlit.png)
+
+This Streamlit interface provides a user-friendly way to interact with the model and complements the FastAPI service by offering a visual, non-technical entry point for inference.
+
 ## Dependency and enviroment management
 
 
