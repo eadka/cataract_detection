@@ -170,6 +170,7 @@ wget https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobile
 The project includes a Streamlit web application that acts as a frontend UI for the cataract detection system.
 Instead of running inference locally, Streamlit sends uploaded images to the FastAPI backend for prediction.
 
+```
 ┌────────────────────┐
 │    Streamlit UI    │
 │  (User Interface)  │
@@ -201,7 +202,7 @@ Instead of running inference locally, Streamlit sends uploaded images to the Fas
 │                    │
 │  {label, confidence}│
 └────────────────────┘
-
+```
 This separation mirrors a production-ready architecture, where:
 - Streamlit handles user interaction and visualization
 - FastAPI handles model inference and business logic
