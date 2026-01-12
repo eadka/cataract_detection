@@ -219,7 +219,7 @@ This separation mirrors a production-ready architecture, where:
 
 This project uses a layered approach to dependency and environment management to support local development, reproducibility, and containerized deployment.
 
-1️. Local Development: uv + pyproject.toml
+1. Local Development: uv + pyproject.toml
 
 For local development and experimentation, dependencies are managed using uv and a pyproject.toml file.
 - uv provides:
@@ -328,6 +328,143 @@ Screenshot of the Streamlit app:
   <img src="images/streamlit.png" alt="Streamlit app" width="500">
 </p>
 
-## Cloud deployment
+## Kubernetes
+This project supports deploying FastAPI and Streamlit to a local Kubernetes cluster using [kind](https://kind.sigs.k8s.io/). This allows you to run the full application in an **isolated cluster**, mimicking a production environment.
+
+
+Our Kubernetes architecture:
+```
+Browser
+  ↓
+NodePort (30007)
+  ↓
+Streamlit Pod
+  ↓ HTTP
+fastapi-service (ClusterIP)
+  ↓
+FastAPI Pod
+  ↓
+ONNX model inference
+```
+
+
+```
+     +--------------------+
+          |    kind Cluster     |
+          |  cataract-detection |
+          +--------------------+
+                    |
+    +---------------+-----------------+
+    |                                 |
++-------------------+ +-------------------+
+| fastapi Service | | streamlit Service |
+| ClusterIP:8000 | | NodePort:8501 |
++-------------------+ +-------------------+
+| |
++-------------+ +-------------+
+| fastapi Pod | | streamlit Pod|
+| (1/1 Ready) | | (1/1 Ready) |
++-------------+ +-------------+
+| |
+/predict UI + API calls
+| |
++----------------+----------------+
+|
+Internal network
+|
+Streamlit → FastAPI
+```
+
+FastAPI communicates with Streamlit internally via Kubernetes services.
+
+Streamlit exposes a NodePort for browser access.
+
+📂 **Directory Structure**
+```
+k8s/
+├─ fastapi/
+│  ├─ deployment.yaml       # FastAPI Deployment
+│  └─ service.yaml          # FastAPI ClusterIP Service
+├─ streamlit/
+│  ├─ deployment.yaml       # Streamlit Deployment
+│  └─ service.yaml          # Streamlit NodePort Service
+```
+
+⚙️ **Prerequisites**
+- Docker & Docker Compose
+- kind
+- kubectl
+
+All container images should be built locally and loaded into the kind cluster.
+
+```
+docker build -t cataract_detection-fastapi:latest ./serve
+docker build -t cataract_detection-streamlit:latest ./streamlit_app
+kind load docker-image cataract_detection-fastapi:latest --name cataract-detection
+kind load docker-image cataract_detection-streamlit:latest --name cataract-detection
+```
+
+**Create the Cluster**
+```
+Create the Cluster
+```
+
+Verify:
+```
+kind create cluster --name cataract-detection
+```
+
+Expected output:
+
+```
+NAME                               STATUS   ROLES           AGE   VERSION
+cataract-detection-control-plane   Ready    control-plane   1m    v1.xx.x
+```
+
+📦 **Deploy the Applications**
+```
+# Deploy FastAPI
+kubectl apply -f k8s/fastapi/deployment.yaml
+kubectl apply -f k8s/fastapi/service.yaml
+
+# Deploy Streamlit
+kubectl apply -f k8s/streamlit/deployment.yaml
+kubectl apply -f k8s/streamlit/service.yaml
+```
+
+Check pods and services:
+```
+kubectl get pods
+kubectl get svc
+```
+
+Pods should show `1/1 Running`.
+
+🌐 **Access the Applications**
+
+FastAPI (inside cluster)
+```
+kubectl port-forward svc/fastapi 8000:8000
+```
+
+Visit: http://127.0.0.1:8000/docs
+
+
+Streamlit (NodePort)
+```
+kubectl port-forward svc/streamlit-service 8501:8501
+```
+
+Visit: http://127.0.0.1:8501
+
+Streamlit communicates with FastAPI internally via the Kubernetes service `fastapi`.
+
+
+🛑 **Shutdown the Cluster**
+```
+kubectl delete -f k8s/streamlit/
+kubectl delete -f k8s/fastapi/
+kind delete cluster --name cataract-detection
+```
 
 
