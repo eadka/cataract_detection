@@ -11,9 +11,9 @@ import io
 app = FastAPI(title="Cataract Detection API")
 
 # Load ONNX model
-BASE_DIR = Path(__file__).resolve().parents[1]  # project root
+BASE_DIR = Path(__file__).resolve().parent  # project root
 MODEL_PATH = BASE_DIR / "model" / "cataract_mobilenet_v2_fixed.onnx"
-session = ort.InferenceSession(MODEL_PATH)
+session = ort.InferenceSession(str(MODEL_PATH))
 
 # Model input/output details
 input_name = session.get_inputs()[0].name
@@ -69,3 +69,8 @@ async def predict(file: UploadFile = File(...)):
             status_code=500,
             content={"error": str(e)}
         )
+
+
+@app.get("/health", include_in_schema=False)
+def health():
+    return {"status": "ok"}

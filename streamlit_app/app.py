@@ -2,8 +2,9 @@ import streamlit as st
 import requests
 from PIL import Image
 import io
+import os
 
-API_URL = "http://localhost:8000/predict"
+FASTAPI_URL = os.getenv("FASTAPI_URL", "http://fastapi:8000/predict")
 
 st.set_page_config(page_title="Cataract Detection", layout="centered")
 
@@ -29,7 +30,7 @@ if uploaded_file:
                 )
             }
 
-            response = requests.post(API_URL, files=files)
+            response = requests.post(FASTAPI_URL, files=files)
 
             if response.status_code == 200:
                 result = response.json()

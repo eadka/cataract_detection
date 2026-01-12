@@ -215,23 +215,83 @@ This separation mirrors a production-ready architecture, where:
 - Prediction label and confidence score are returned as JSON
 - Streamlit displays the result to the user
 
-#### Running the Application Locally
-1. Start the FastAPI backend
-Open a terminal and run:
+## Dependency and enviroment management
+
+This project uses a layered approach to dependency and environment management to support local development, reproducibility, and containerized deployment.
+
+1️. Local Development: uv + pyproject.toml
+
+For local development and experimentation, dependencies are managed using uv and a pyproject.toml file.
+- uv provides:
+  - Fast dependency resolution
+  - Reproducible environments
+  - A modern alternative to `pip + virtualenv`
+- Core dependencies are declared in pyproject.toml:
+- Locking is handled via:
+  - uv.lock (ensures consistent versions across environments)
+
+This setup was used during:
+- Model serving development
+- API testing
+- Streamlit ↔ FastAPI integration
+
+2. Runtime Dependencies: requirements.txt (Docker)
+
+For containerized execution, the project uses explicit requirements.txt files instead of uv.
+
+Each service has its own dependency file:
+- serve/requirements.txt → FastAPI + ONNX runtime
+- streamlit_app/requirements.txt → Streamlit UI + HTTP client
+
+This allows:
+- Smaller images
+- Clear separation of concerns
+- Independent service scaling
+
+3. Environment Variables
+Environment-specific configuration is handled via environment variables, making the system portable and Docker-friendly.
+
+Example:
 ```
-cd serve
-uv run uvicorn app:app --reload
+FASTAPI_URL = os.getenv(
+    "FASTAPI_URL",
+    "http://fastapi:8000/predict"
+)
+```
+This enables:
+- Local execution (localhost)
+- Docker Compose service discovery (fastapi)
+- Cloud deployment without code changes
+
+4. Containerized Isolation (Docker)
+The application is fully containerized using Docker + Docker Compose:
+- Each service runs in its own container:
+  - FastAPI → model inference
+  - Streamlit → UI layer
+- Dependencies are isolated per service
+- Python versions and OS libraries are fixed
+
+This ensures:
+- No dependency conflicts
+- Consistent behavior across machines
+- Deployment-ready architecture
+
+## Docker
+🐳 Dockerized Deployment (FastAPI + Streamlit)
+
+This project is fully containerized using Docker Compose, enabling consistent and reproducible deployment of both the FastAPI inference service and the Streamlit UI.
+
+#### Run Docker
+From the project root:
+```
+docker compose build
+docker compose up
 ```
 
-FastAPI will be available at:
-```
-http://127.0.0.1:8000
-```
+#### Access the Applications
+FastAPI Swagger UI
+👉 http://localhost:8000/docs
 
-Swagger UI:
-```
-http://127.0.0.1:8000/docs
-```
 Upload an image and click on Execute to check the result.
 
 ![Fastapi Endpoint](images/fastapi.png)
@@ -244,17 +304,8 @@ The result should appear as:
 }
 ```
 
-2. Start the Streamlit frontend
-Open a new terminal and run:
-```
-cd streamlit_app
-uv run streamlit run app.py
-```
-
-Streamlit will open automatically in your browser (usually at):
-```
-http://localhost:8501
-```
+Streamlit UI
+👉 http://localhost:8501
 
 Using the Streamlit App:
 - Upload an eye image (.png, .jpg, .jpeg)
@@ -274,17 +325,6 @@ Confidence: 0.9998
 
 Screenshot of the Streamlit app:
 ![Streamlit app](images/streamlit.png)
-
-
-## Dependency and enviroment management
-
-
----
-
-## Containerization
-
-
---- 
 
 ## Cloud deployment
 
