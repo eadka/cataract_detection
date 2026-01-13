@@ -127,15 +127,29 @@ The train dataset has 491 images: 245 as cataract and 246 as normal.
 
 The test has 121 images: 61 as cataract and 60 as normal.
 
-## EDA
+## Exploratory Data Analysis (EDA)
 
+### Dataset Overview
+- Number of images per class
+- Class balance
 
----
+### Image Characteristics
+- Resolution and aspect ratio distribution
+- Color and intensity variability
+
+### Visual Inspection
+- Sample images from each class
+- Observed intra-class variability
+
+### Data Augmentation Validation
+- Visual confirmation of geometric and blur augmentations
+
+### Observations
+- Cataract images exhibit lens opacity and reduced clarity
+- High variability in lighting and zoom motivates data augmentation
+
 
 ## Model Training
-
-
-## Trained Model
 
 The final trained model is stored as a versioned artifact using GitHub Releases, separate from the training code, to ensure reproducibility and clean version control and can be found below:
 
@@ -155,17 +169,14 @@ Next, the model trained in PyTorch is exported to ONNX, and served via FastAPI t
 wget https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobilenet-cataract-onnx/cataract_mobilenet_v2_fixed.onnx
 ```
 
----
 
 ## Exporting notebook to script
+The final model in the notebook has been exported to a script and can be found here: [model.py](https://github.com/eadka/cataract_detection/blob/main/src/model.py)
 
----
+Then, the [convert_to_onnx.py](https://github.com/eadka/cataract_detection/blob/main/convert/convert_to_onnx.py) script is used to convert the [model.py](https://github.com/eadka/cataract_detection/blob/main/src/model.py) to an onnx format.
 
-## Reproducibility
 
----
-
-## Model Deployment
+## Reproducibility & Model Deployment
 ### Streamlit + FastAPI
 The project includes a Streamlit web application that acts as a frontend UI for the cataract detection system.
 Instead of running inference locally, Streamlit sends uploaded images to the FastAPI backend for prediction.
