@@ -347,32 +347,25 @@ FastAPI Pod
 ONNX model inference
 ```
 
+### 🗺️ Kubernetes Architecture
 
-```
-     +--------------------+
-          |    kind Cluster     |
-          |  cataract-detection |
-          +--------------------+
-                    |
-    +---------------+-----------------+
-    |                                 |
-+-------------------+ +-------------------+
-| fastapi Service | | streamlit Service |
-| ClusterIP:8000 | | NodePort:8501 |
-+-------------------+ +-------------------+
-| |
-+-------------+ +-------------+
-| fastapi Pod | | streamlit Pod|
-| (1/1 Ready) | | (1/1 Ready) |
-+-------------+ +-------------+
-| |
-/predict UI + API calls
-| |
-+----------------+----------------+
-|
-Internal network
-|
-Streamlit → FastAPI
+```mermaid
+flowchart LR
+    subgraph KIND["kind cluster: cataract-detection"]
+        SVC_UI["Streamlit Service\n(NodePort :8501)"]
+        POD_UI["Streamlit Pod"]
+
+        SVC_API["FastAPI Service\n(ClusterIP :8000)"]
+        POD_API["FastAPI Pod"]
+
+        SVC_UI --> POD_UI
+        SVC_API --> POD_API
+
+        POD_UI -->|HTTP POST /predict| SVC_API
+    end
+
+    USER["Browser"] --> SVC_UI
+
 ```
 
 FastAPI communicates with Streamlit internally via Kubernetes services.
