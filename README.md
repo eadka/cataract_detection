@@ -399,41 +399,45 @@ k8s/
 - kind
 - kubectl
 
-All container images should be built locally and loaded into the kind cluster.
-
-```
-docker build -t cataract_detection-fastapi:latest ./serve
-docker build -t cataract_detection-streamlit:latest ./streamlit_app
-kind load docker-image cataract_detection-fastapi:latest --name cataract-detection
-kind load docker-image cataract_detection-streamlit:latest --name cataract-detection
-```
-
 **Create the Cluster**
-```
-Create the Cluster
-```
-
-Verify:
 ```
 kind create cluster --name cataract-detection
 ```
 
-Expected output:
+**Load Docker images into Kind**
+All container images should be built locally and loaded into the kind cluster.
 
 ```
-NAME                               STATUS   ROLES           AGE   VERSION
-cataract-detection-control-plane   Ready    control-plane   1m    v1.xx.x
+docker build -t cataract_detection-fastapi:latest -f serve/Dockerfile .
+docker build -t cataract_detection-streamlit:latest -f streamlit_app/Dockerfile .
+
+kind load docker-image cataract_detection-fastapi:latest --name cataract-detection
+kind load docker-image cataract_detection-streamlit:latest --name cataract-detection
 ```
+
+**Deploy FastAPI**
+```
+kubectl apply -f k8s/fastapi/
+```
+
+Verify:
+```
+kubectl get pods
+```
+
+Expected output:
+```
+fastapi-xxxxx   1/1   Running
+```
+
+Open:
+http://127.0.0.1:8000/docs
+Stop port-forward (CTRL+C).
+
 
 📦 **Deploy the Applications**
 ```
-# Deploy FastAPI
-kubectl apply -f k8s/fastapi/deployment.yaml
-kubectl apply -f k8s/fastapi/service.yaml
-
-# Deploy Streamlit
-kubectl apply -f k8s/streamlit/deployment.yaml
-kubectl apply -f k8s/streamlit/service.yaml
+kubectl apply -f k8s/streamlit/
 ```
 
 Check pods and services:
@@ -471,4 +475,12 @@ kubectl delete -f k8s/fastapi/
 kind delete cluster --name cataract-detection
 ```
 
+### Kubernetes Deployment Demo
+A local Kubernetes cluster (kind) running Streamlit and FastAPI as separate deployments, connected via a ClusterIP service and validated through live inference.
 
+![Kubernetes demo](https://github.com/eadka/cataract_detection/blob/main/images/kubernetes-fastapi-streamlit-demo.gif)
+
+
+## 📌 Conclusion
+
+This project brings together model serving, containerization, and orchestration into a reproducible ML system. Using Docker and Kubernetes (kind), it demonstrates how a Streamlit frontend can reliably communicate with a FastAPI inference service using production-style patterns — all running locally.

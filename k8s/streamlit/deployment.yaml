@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
         - name: streamlit
-          image: cataract-streamlit:latest
+          image: cataract_detection-streamlit:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8501
           env:
             - name: FASTAPI_URL
-              value: http://fastapi-service:8000/predict
+              value: http://fastapi:8000/predict

@@ -17,8 +17,8 @@ spec:
     spec:
       containers:
       - name: fastapi
-        image: eadka/cataract-fastapi:latest   # <-- your Docker image
-        imagePullPolicy: IfNotPresent
+        image: cataract_detection-fastapi:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 8000
         livenessProbe:
