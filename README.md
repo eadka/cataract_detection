@@ -20,9 +20,14 @@
   <a href="#kubernetes">☸️ Kubernetes</a>
 </p>
 
-This repository was created as part of the DataTalks.Club's Machine Learning Zoomcamp by Alexey Grigorev.
-
-This project has been submitted as the Capstone project for the course.
+<p align="center">
+  This repository was created as part of the 
+  <a href="https://datatalks.club/" target="_blank">DataTalks.Club's</a> 
+  Machine Learning Zoomcamp by 
+  <a href="https://github.com/alexeygrigorev" target="_blank">Alexey Grigorev</a>.
+  <br/>
+  This project has been submitted as the Capstone project for the course.
+</p>
 
 ---
 ## Overview
