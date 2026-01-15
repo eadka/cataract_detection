@@ -9,15 +9,14 @@
 
 **End-to-end ML system for cataract detection with deep learning, Docker, and Kubernetes**
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
-![ML Zoomcamp](https://img.shields.io/badge/ML%20Zoomcamp-DataTalksClub-orange)
-![Framework](https://img.shields.io/badge/Framework-FastAPI-green)
-![UI](https://img.shields.io/badge/UI-Streamlit-red)
-![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-kind-blueviolet)
-![Cloud](https://img.shields.io/badge/Cloud-Fly.io-purple)
+<h1 align="center">🩺 Cataract Detection using Deep Learning</h1>
 
-KaggleOpen Streamlit App
+<p align="center">
+  <a href="https://www.kaggle.com/code/aditikoppikar/cataract-detection">📊 Kaggle</a> •
+  <a href="https://cataractdetectionmlzoomcamp.streamlit.app/">🚀 Streamlit App</a> •
+  <a href="#docker">🐳 Docker</a> •
+  <a href="#kubernetes">☸️ Kubernetes</a>
+</p>
 
 This repository was created as part of the DataTalks.Club's Machine Learning Zoomcamp by Alexey Grigorev.
 
@@ -55,54 +54,53 @@ Early detection plays an important role in preventing severe vision impairment. 
 ```text
 cataract-detection/
 │
-├── src/
-│   ├── model.py              # ✅ model architecture (THIS is Step 1)
-│   ├── train.py              # training loop
-│   ├── evaluate.py           # validation / test evaluation
-│   ├── predict.py            # inference script (optional)
 │
 ├── convert/
-│   ├── convert_to_onnx.py    # ONNX export script
+│   ├── convert_to_onnx.py                        # ONNX export script
+│   ├── test_onnx.py                              # ONNX export script
 │
-├── data/
-│   └── sample_images/          # Sample eye images for testing/demo
+├── images/                                       # Sample eye images for testing/demo
 │
 ├── notebooks/
-│   ├── train.py                # Model training script
-│   ├── evaluate.py             # Model evaluation and metrics
+│   ├── cataract-detection.ipynb                  # Model training script
 │
 ├── model/
-│   └── mobilenet_v4_06_0.980.pth                # Trained CNN model 
-├── app/
-│   ├── app.py                  # FastAPI inference service
-│   └── predict.py              # Prediction logic and preprocessing
+│   └── mobilenet_v4_06_0.980.pth                 # Trained CNN model 
+│   └── cataract_mobilenet_v2_fixed.onnx          # Converted ONNX model
+│
+├── serve/
+│   ├── app.py                                    # FastAPI inference service
+│   └── Dockerfile                                # FastAPI Docker file 
+│   └── requirements.txt                          # Requirements file
+│
+├── src/
+│   ├── model.py                                  # Base model
+│   ├── train.py                                  # Final training model
 │
 ├── streamlit_app/
-│   └── ui.py                   # Streamlit user interface
+│   └── app.py                                    # Streamlit user interface
+│   ├── Dockerfile                                # Streamlit Dockerfile
+│   ├── test.py                                   # Script to test Steamlit app
+│   ├── requirements.txt                          # requirements file
 │
 ├── docker/
-│   └── Dockerfile              # Dockerfile for inference service
+│   └── Dockerfile                                # Dockerfile for inference service
 │
 ├── k8s/
-│   ├── deployment.yaml         # Kubernetes Deployment
-│   └── service.yaml            # Kubernetes Service
+│   └── config/                                   # Kubernetes Service
+│   ├── fastapi/
+│   │   ├── deployment.yaml                       # Kubernetes Deployment for Fastapi
+│   │   └── service.yaml                          # Kubernetes Service for Fastapi
+│   ├── streamlit/
+│   │   ├── deployment.yaml                       # Kubernetes Deployment for Streamlit
+│   │   └── service.yaml                          # Kubernetes Service for Streamlit
 │
-│── images/
 │
-├── requirements.txt            # Python dependencies
-├── Makefile                    # Common project commands
-└── README.md                   # Project documentation
-
-
-/kaggle/working/split_data/
-  ├── train/
-  │   ├── cataract/
-  │   └── normal/
-  └── val/
-      ├── cataract/
-      └── normal/
+├── docker-compose.yml                            # Docker compose 
+├── pyproject.toml                                # uv config file
+└── README.md                                     # Project documentation
 ```
----
+
 ## Dataset
 In this project, the following Kaggle dataset has been used: [Cataract Dataset](https://www.kaggle.com/datasets/nandanp6/cataract-image-dataset)
 
@@ -117,7 +115,7 @@ path = kagglehub.dataset_download("nandanp6/cataract-image-dataset")
 
 print("Path to dataset files:", path)
 ```
-## About the dataset
+### About the dataset
 
 The images in this dataset are cataract eye images dataset from camera captures which have been scrapped from the web. 
 
@@ -130,25 +128,24 @@ The test has 121 images: 61 as cataract and 60 as normal.
 ## Dataset analysis and Training models
 The dataset analysis and the models training were conducted in Jupyter Notebook. You can find in the file named [cataract-detection.ipynb](https://github.com/eadka/cataract_detection/blob/main/notebooks/cataract-detection.ipynb)
 
+### Exploratory Data Analysis (EDA)
 
-## Exploratory Data Analysis (EDA)
-
-### Dataset Overview
+#### Dataset Overview
 - Number of images per class
 - Class balance
 
-### Image Characteristics
+#### Image Characteristics
 - Resolution and aspect ratio distribution
 - Color and intensity variability
 
-### Visual Inspection
+#### Visual Inspection
 - Sample images from each class
 - Observed intra-class variability
 
-### Data Augmentation Validation
+#### Data Augmentation Validation
 - Visual confirmation of geometric and blur augmentations
 
-### Observations
+#### Observations
 - Cataract images exhibit lens opacity and reduced clarity
 - High variability in lighting and zoom motivates data augmentation
 
@@ -173,9 +170,8 @@ Next, the model trained in PyTorch is exported to ONNX, and served via FastAPI t
 wget https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobilenet-cataract-onnx/cataract_mobilenet_v2_fixed.onnx
 ```
 
-
 ## Exporting notebook to script
-The final model in the notebook has been exported to a script and can be found here: [model.py](https://github.com/eadka/cataract_detection/blob/main/src/model.py)
+The final model in the notebook has been exported to a script and can be found here: [model.py](https://github.com/eadka/cataract_detection/blob/main/src/model.py) and the training script here: [train.py](https://github.com/eadka/cataract_detection/blob/main/src/train.py)
 
 Then, the [convert_to_onnx.py](https://github.com/eadka/cataract_detection/blob/main/convert/convert_to_onnx.py) script is used to convert the [model.py](https://github.com/eadka/cataract_detection/blob/main/src/model.py) to an onnx format.
 
@@ -388,7 +384,7 @@ FastAPI communicates with Streamlit internally via Kubernetes services.
 
 Streamlit exposes a NodePort for browser access.
 
-📂 **Directory Structure**
+**Directory Structure**
 ```
 k8s/
 ├─ fastapi/
@@ -399,7 +395,7 @@ k8s/
 │  └─ service.yaml          # Streamlit NodePort Service
 ```
 
-⚙️ **Prerequisites**
+**Prerequisites**
 - Docker & Docker Compose
 - kind
 - kubectl
@@ -440,7 +436,7 @@ http://127.0.0.1:8000/docs
 Stop port-forward (CTRL+C).
 
 
-📦 **Deploy the Applications**
+**Deploy the Applications**
 ```
 kubectl apply -f k8s/streamlit/
 ```
@@ -453,7 +449,7 @@ kubectl get svc
 
 Pods should show `1/1 Running`.
 
-🌐 **Access the Applications**
+**Access the Applications**
 
 FastAPI (inside cluster)
 ```
@@ -473,7 +469,7 @@ Visit: http://127.0.0.1:8501
 Streamlit communicates with FastAPI internally via the Kubernetes service `fastapi`.
 
 
-🛑 **Shutdown the Cluster**
+**Shutdown the Cluster**
 ```
 kubectl delete -f k8s/streamlit/
 kubectl delete -f k8s/fastapi/
@@ -486,6 +482,6 @@ A local Kubernetes cluster (kind) running Streamlit and FastAPI as separate depl
 ![Kubernetes demo](https://github.com/eadka/cataract_detection/blob/main/images/kubernetes-fastapi-streamlit-demo.gif)
 
 
-## 📌 Conclusion
+## Conclusion
 
 This project brings together model serving, containerization, and orchestration into a reproducible ML system. Using Docker and Kubernetes (kind), it demonstrates how a Streamlit frontend can reliably communicate with a FastAPI inference service using production-style patterns — all running locally.
