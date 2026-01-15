@@ -182,7 +182,7 @@ The final model in the notebook has been exported to a script and can be found h
 
 Then, the [convert_to_onnx.py](https://github.com/eadka/cataract_detection/blob/main/convert/convert_to_onnx.py) script is used to convert the [model.py](https://github.com/eadka/cataract_detection/blob/main/src/model.py) to an onnx format.
 
-Several models were training for different tasks. To deployment I used a model trained for classification and segmentation named [mobilenet_v4_06_0.980.pth](https://github.com/eadka/cataract_detection/releases/download/v1.0-mobilenet-cataract/mobilenet_v4_06_0.980.pth) and the converted ONNX model [cataract_mobilenet_v2_fixed.onnx](https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobilenet-cataract-onnx/cataract_mobilenet_v2_fixed.onnx)
+Several models were trained during hyperparameter tuning. For deployment the model trained for classification is [mobilenet_v4_06_0.980.pth](https://github.com/eadka/cataract_detection/releases/download/v1.0-mobilenet-cataract/mobilenet_v4_06_0.980.pth) and the converted ONNX model [cataract_mobilenet_v2_fixed.onnx](https://github.com/eadka/cataract_detection/releases/download/v1.0.1-mobilenet-cataract-onnx/cataract_mobilenet_v2_fixed.onnx)
 
 ## Reproducibility & Model Deployment
 ### Streamlit + FastAPI
@@ -222,7 +222,7 @@ Instead of running inference locally, Streamlit sends uploaded images to the Fas
 │  {label, confidence}│
 └────────────────────┘
 ```
-This separation mirrors a production-ready architecture, where:
+This separation mirrors an production-ready architecture, where:
 - Streamlit handles user interaction and visualization
 - FastAPI handles model inference and business logic
 - ONNX Runtime performs efficient, framework-agnostic inference
