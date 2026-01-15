@@ -1,4 +1,10 @@
-# 👁️ Cataract Detection
+<h1 align="center">👁️ Cataract Detection using Deep Learning</h1>
+
+<p align="center">
+  <strong>
+    End-to-end ML system for cataract detection with deep learning, Docker, and Kubernetes
+  </strong>
+
 <div align="center">
   <img 
     src="https://collaborativeeye.com/wp-content/uploads/sites/7/2019/02/The-Importance-of-the-Ocular-Surface-in-Cataract-Surgery-Hero-740x366.jpg"
@@ -6,10 +12,6 @@
     alt="Cataract illustration"
   />
 </div>
-
-**End-to-end ML system for cataract detection with deep learning, Docker, and Kubernetes**
-
-<h1 align="center">🩺 Cataract Detection using Deep Learning</h1>
 
 <p align="center">
   <a href="https://www.kaggle.com/code/aditikoppikar/cataract-detection">📊 Kaggle</a> •
