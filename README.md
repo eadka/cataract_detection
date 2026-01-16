@@ -245,7 +245,7 @@ For local development and experimentation, dependencies are managed using uv and
   - Fast dependency resolution
   - Reproducible environments
   - A modern alternative to `pip + virtualenv`
-- Core dependencies are declared in pyproject.toml:
+- Core dependencies are declared in pyproject.toml
 - Locking is handled via:
   - uv.lock (ensures consistent versions across environments)
 
@@ -298,7 +298,7 @@ This ensures:
 ## Docker
 🐳 Dockerized Deployment (FastAPI + Streamlit)
 
-This project is fully containerized using Docker Compose, enabling consistent and reproducible deployment of both the FastAPI inference service and the Streamlit UI.
+This project is fully containerized using `Docker Compose`, enabling consistent and reproducible deployment of both the FastAPI inference service and the Streamlit UI.
 
 #### Run Docker
 From the project root:
@@ -351,7 +351,7 @@ Screenshot of the Streamlit app:
 This project supports deploying FastAPI and Streamlit to a local Kubernetes cluster using [kind](https://kind.sigs.k8s.io/). This allows you to run the full application in an **isolated cluster**, mimicking a production environment.
 
 
-Our Kubernetes architecture:
+Kubernetes data flow:
 ```
 Browser
   ↓
@@ -366,7 +366,7 @@ FastAPI Pod
 ONNX model inference
 ```
 
-### 🗺️ Kubernetes Architecture
+### Kubernetes Architecture
 
 ```mermaid
 flowchart LR
@@ -443,7 +443,7 @@ http://127.0.0.1:8000/docs
 Stop port-forward (CTRL+C).
 
 
-**Deploy the Applications**
+**Deploy Streamlit**
 ```
 kubectl apply -f k8s/streamlit/
 ```
@@ -475,6 +475,7 @@ Visit: http://127.0.0.1:8501
 
 Streamlit communicates with FastAPI internally via the Kubernetes service `fastapi`.
 
+Once done, delete the pods and shut down the cluster.
 
 **Shutdown the Cluster**
 ```
